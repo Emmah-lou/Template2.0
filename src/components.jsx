@@ -103,7 +103,7 @@ class Clock extends React.Component {
       fetch (apiCall)   
       .then(response => response.json())
       .then(data => {  
-        console.log(data);
+        //console.log(data);
         this.setState( {location: data.display_name} );
       })
     });
