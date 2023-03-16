@@ -82,34 +82,28 @@ class Clock extends React.Component {
     super(props);
     this.state = {
       currentTime: new Date(),
-      location: this.location,
+      location: 'Loading...',
     };
   }
   getLocation() {
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     const lat = position.coords.latitude;
-    //     const lon = position.coords.longitude;
-    //     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyD0Z0u3ZVq3Yj8QH7TmRm1yL7g6bWjK9l0`;
-    //     fetch(url)
-    //       .then(response => response.json())
-    //       .then(data => {
-    //         this.setState( {location: data.results[0].formatted_address} );
-    //       });
-    //   });
-    // } else {
-    //   this.setState( {location: 'Geolocation is not supported by this browser.'} );
-    // }
+
     navigator.geolocation.getCurrentPosition((position) => {
       const location = `${position.coords.latitude}, ${position.coords.longitude}`;
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
+      console.log(lat, lon);
       const url = `https://www.google.com/search?q=${lat}%2C+${lon}`
-      this.setState( {location: url} );
+      //this.setState( {location: url} );
+      const apiCall = `https://us1.locationiq.com/v1/reverse?key=pk.5f6ccf34896284c480a8d6ec083f317c&lat=${lat}&lon=${lon}&format=json`;
+      fetch (apiCall)   
+      .then(response => response.json())
+      .then(data => {  
+        console.log(data.display_name);
+        this.setState( {location: data.display_name} );
+      })
     });
 
   } 
-
   componentDidMount() {
     this.currentClock = setInterval(() => this.updateTime(), 1000);
     this.location = this.getLocation();
@@ -123,7 +117,9 @@ class Clock extends React.Component {
   render() {
     return (
       <div>
-        <h2>The Time in <a href={this.state.location}>Click For Current Location</a> is Currently, {this.state.currentTime.toLocaleTimeString()}</h2>
+        <h2>Hello World! Welcome {this.state.location}</h2>
+        <h2>Current time {this.state.currentTime.toLocaleTimeString()}</h2>
+        
       </div>
     );
   }

@@ -155,7 +155,7 @@ var Clock = function (_React$Component2) {
 
     _this3.state = {
       currentTime: new Date(),
-      location: _this3.location
+      location: 'Loading...'
     };
     return _this3;
   }
@@ -165,26 +165,20 @@ var Clock = function (_React$Component2) {
     value: function getLocation() {
       var _this4 = this;
 
-      // if (navigator.geolocation) {
-      //   navigator.geolocation.getCurrentPosition((position) => {
-      //     const lat = position.coords.latitude;
-      //     const lon = position.coords.longitude;
-      //     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyD0Z0u3ZVq3Yj8QH7TmRm1yL7g6bWjK9l0`;
-      //     fetch(url)
-      //       .then(response => response.json())
-      //       .then(data => {
-      //         this.setState( {location: data.results[0].formatted_address} );
-      //       });
-      //   });
-      // } else {
-      //   this.setState( {location: 'Geolocation is not supported by this browser.'} );
-      // }
       navigator.geolocation.getCurrentPosition(function (position) {
         var location = position.coords.latitude + ", " + position.coords.longitude;
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
+        console.log(lat, lon);
         var url = "https://www.google.com/search?q=" + lat + "%2C+" + lon;
-        _this4.setState({ location: url });
+        //this.setState( {location: url} );
+        var apiCall = "https://us1.locationiq.com/v1/reverse?key=pk.5f6ccf34896284c480a8d6ec083f317c&lat=" + lat + "&lon=" + lon + "&format=json";
+        fetch(apiCall).then(function (response) {
+          return response.json();
+        }).then(function (data) {
+          console.log(data.display_name);
+          _this4.setState({ location: data.display_name });
+        });
       });
     }
   }, {
@@ -216,13 +210,13 @@ var Clock = function (_React$Component2) {
         React.createElement(
           "h2",
           null,
-          "The Time in ",
-          React.createElement(
-            "a",
-            { href: this.state.location },
-            "Click For Current Location"
-          ),
-          " is Currently, ",
+          "Hello World! Welcome ",
+          this.state.location
+        ),
+        React.createElement(
+          "h2",
+          null,
+          "Current time ",
           this.state.currentTime.toLocaleTimeString()
         )
       );
