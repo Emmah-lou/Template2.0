@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Emmah-lou/Template2.0#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2"
+    "babel-preset-react-app": "^3.1.2",
+    "dotenv": "^16.0.3"
   }
 }

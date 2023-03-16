@@ -1,3 +1,8 @@
+const dotenv = require('dotenv');
+dotenv.config();
+const {mapAPIKey} = process.env.LOCATION_API_TOKEN;
+
+
 const Template = (props) => {
   return (
     <div>
@@ -94,11 +99,11 @@ class Clock extends React.Component {
       console.log(lat, lon);
       const url = `https://www.google.com/search?q=${lat}%2C+${lon}`
       //this.setState( {location: url} );
-      const apiCall = `https://us1.locationiq.com/v1/reverse?key=pk.5f6ccf34896284c480a8d6ec083f317c&lat=${lat}&lon=${lon}&format=json`;
+      const apiCall = `https://us1.locationiq.com/v1/reverse?key=${mapAPIKey}&lat=${lat}&lon=${lon}&format=json`;
       fetch (apiCall)   
       .then(response => response.json())
       .then(data => {  
-        console.log(data.display_name);
+        console.log(data);
         this.setState( {location: data.display_name} );
       })
     });
@@ -120,6 +125,33 @@ class Clock extends React.Component {
         <h2>Hello World! Welcome {this.state.location}</h2>
         <h2>Current time {this.state.currentTime.toLocaleTimeString()}</h2>
         
+      </div>
+    );
+  }
+}
+
+class ScrollLengthLogger extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollLength: 0,
+    };
+    this.updateScrollLength = this.updateScrollLength.bind(this);
+  }
+  updateScrollLength(e) {
+    this.setState( {scrollLength: window.scrollY} );
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.updateScrollLength);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.updateScrollLength);
+  }
+  render() {
+    return (
+      <div>
+        <h2>Scroll Length: {this.state.scrollLength}</h2>
       </div>
     );
   }

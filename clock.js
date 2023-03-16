@@ -3,7 +3,8 @@ var App = function App() {
     Template,
     null,
     React.createElement(Clock, null),
-    React.createElement(Counter, null)
+    React.createElement(Counter, null),
+    React.createElement(ScrollLengthLogger, null)
   );
 };
 

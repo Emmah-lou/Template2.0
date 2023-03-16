@@ -4,6 +4,8 @@ const App = () => {
       <Clock />
       
       <Counter />
+
+      <ScrollLengthLogger />
     </Template>
   );
 }

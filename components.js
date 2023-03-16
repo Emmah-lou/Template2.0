@@ -176,7 +176,7 @@ var Clock = function (_React$Component2) {
         fetch(apiCall).then(function (response) {
           return response.json();
         }).then(function (data) {
-          console.log(data.display_name);
+          console.log(data);
           _this4.setState({ location: data.display_name });
         });
       });
@@ -224,4 +224,53 @@ var Clock = function (_React$Component2) {
   }]);
 
   return Clock;
+}(React.Component);
+
+var ScrollLengthLogger = function (_React$Component3) {
+  _inherits(ScrollLengthLogger, _React$Component3);
+
+  function ScrollLengthLogger(props) {
+    _classCallCheck(this, ScrollLengthLogger);
+
+    var _this6 = _possibleConstructorReturn(this, (ScrollLengthLogger.__proto__ || Object.getPrototypeOf(ScrollLengthLogger)).call(this, props));
+
+    _this6.state = {
+      scrollLength: 0
+    };
+    _this6.updateScrollLength = _this6.updateScrollLength.bind(_this6);
+    return _this6;
+  }
+
+  _createClass(ScrollLengthLogger, [{
+    key: "updateScrollLength",
+    value: function updateScrollLength(e) {
+      this.setState({ scrollLength: window.scrollY });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      window.addEventListener('scroll', this.updateScrollLength);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.removeEventListener('scroll', this.updateScrollLength);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "h2",
+          null,
+          "Scroll Length: ",
+          this.state.scrollLength
+        )
+      );
+    }
+  }]);
+
+  return ScrollLengthLogger;
 }(React.Component);
