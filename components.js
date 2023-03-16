@@ -96,28 +96,77 @@ var Footer = function Footer() {
   );
 };
 
-var Clock = function (_React$Component) {
-  _inherits(Clock, _React$Component);
+var Counter = function (_React$Component) {
+  _inherits(Counter, _React$Component);
+
+  function Counter(props) {
+    _classCallCheck(this, Counter);
+
+    var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+
+    _this.state = {
+      count: 0
+    };
+
+    return _this;
+  }
+
+  _createClass(Counter, [{
+    key: "increment",
+    value: function increment(amount) {
+
+      this.setState({ count: this.state.count + amount });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "h2",
+          null,
+          "Count: ",
+          this.state.count
+        ),
+        React.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.increment(2);
+            } },
+          "Increment"
+        )
+      );
+    }
+  }]);
+
+  return Counter;
+}(React.Component);
+
+var Clock = function (_React$Component2) {
+  _inherits(Clock, _React$Component2);
 
   function Clock(props) {
     _classCallCheck(this, Clock);
 
-    var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this, props));
+    var _this3 = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this, props));
 
-    _this.state = {
+    _this3.state = {
       currentTime: new Date(),
       location: 'New Mexico'
     };
-    return _this;
+    return _this3;
   }
 
   _createClass(Clock, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
+      var _this4 = this;
 
       this.currentClock = setInterval(function () {
-        return _this2.updateTime();
+        return _this4.updateTime();
       }, 1000);
     }
   }, {

@@ -54,7 +54,28 @@ const Footer = () => {
   )
 }
 
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+    
+  }
+  increment(amount) {
+    
+    this.setState( {count: this.state.count + amount} );
+  }
+  render() {
+    return (
+      <div>
+        <h2>Count: {this.state.count}</h2>
+        <button onClick={() => this.increment(2)}>Increment</button>
+      </div>
+    );
 
+  }
+}
 
 class Clock extends React.Component {
   constructor(props) {
