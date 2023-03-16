@@ -66,11 +66,11 @@ class Counter extends React.Component {
     
     this.setState( {count: this.state.count + amount} );
   }
-  render() {
+  render() { 
     return (
       <div>
         <h2>Count: {this.state.count}</h2>
-        <button onClick={() => this.increment(2)}>Increment</button>
+        <button onClick={() => this.increment(1)}>Increment</button>
       </div>
     );
 
@@ -82,11 +82,37 @@ class Clock extends React.Component {
     super(props);
     this.state = {
       currentTime: new Date(),
-      location: 'New Mexico',
+      location: this.location,
     };
   }
+  getLocation() {
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     const lat = position.coords.latitude;
+    //     const lon = position.coords.longitude;
+    //     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyD0Z0u3ZVq3Yj8QH7TmRm1yL7g6bWjK9l0`;
+    //     fetch(url)
+    //       .then(response => response.json())
+    //       .then(data => {
+    //         this.setState( {location: data.results[0].formatted_address} );
+    //       });
+    //   });
+    // } else {
+    //   this.setState( {location: 'Geolocation is not supported by this browser.'} );
+    // }
+    navigator.geolocation.getCurrentPosition((position) => {
+      const location = `${position.coords.latitude}, ${position.coords.longitude}`;
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = `https://www.google.com/search?q=${lat}%2C+${lon}`
+      this.setState( {location: url} );
+    });
+
+  } 
+
   componentDidMount() {
     this.currentClock = setInterval(() => this.updateTime(), 1000);
+    this.location = this.getLocation();
   }
   componentWillUnmount() {
     clearInterval(this.currentClock);
@@ -97,7 +123,7 @@ class Clock extends React.Component {
   render() {
     return (
       <div>
-        <h2>The Time in {this.state.location} is Currently, {this.state.currentTime.toLocaleTimeString()}. MTS</h2>
+        <h2>The Time in <a href={this.state.location}>Click For Current Location</a> is Currently, {this.state.currentTime.toLocaleTimeString()}</h2>
       </div>
     );
   }

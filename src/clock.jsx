@@ -1,8 +1,8 @@
 const App = () => {
   return (
     <Template>
-      <Clock secondsShift={0}/>
-      <Clock secondsShift={10}/>
+      <Clock />
+      
       <Counter />
     </Template>
   );

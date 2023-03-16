@@ -134,7 +134,7 @@ var Counter = function (_React$Component) {
         React.createElement(
           "button",
           { onClick: function onClick() {
-              return _this2.increment(2);
+              return _this2.increment(1);
             } },
           "Increment"
         )
@@ -155,19 +155,47 @@ var Clock = function (_React$Component2) {
 
     _this3.state = {
       currentTime: new Date(),
-      location: 'New Mexico'
+      location: _this3.location
     };
     return _this3;
   }
 
   _createClass(Clock, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+    key: "getLocation",
+    value: function getLocation() {
       var _this4 = this;
 
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.getCurrentPosition((position) => {
+      //     const lat = position.coords.latitude;
+      //     const lon = position.coords.longitude;
+      //     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyD0Z0u3ZVq3Yj8QH7TmRm1yL7g6bWjK9l0`;
+      //     fetch(url)
+      //       .then(response => response.json())
+      //       .then(data => {
+      //         this.setState( {location: data.results[0].formatted_address} );
+      //       });
+      //   });
+      // } else {
+      //   this.setState( {location: 'Geolocation is not supported by this browser.'} );
+      // }
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var location = position.coords.latitude + ", " + position.coords.longitude;
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        var url = "https://www.google.com/search?q=" + lat + "%2C+" + lon;
+        _this4.setState({ location: url });
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this5 = this;
+
       this.currentClock = setInterval(function () {
-        return _this4.updateTime();
+        return _this5.updateTime();
       }, 1000);
+      this.location = this.getLocation();
     }
   }, {
     key: "componentWillUnmount",
@@ -189,10 +217,13 @@ var Clock = function (_React$Component2) {
           "h2",
           null,
           "The Time in ",
-          this.state.location,
+          React.createElement(
+            "a",
+            { href: this.state.location },
+            "Click For Current Location"
+          ),
           " is Currently, ",
-          this.state.currentTime.toLocaleTimeString(),
-          ". MTS"
+          this.state.currentTime.toLocaleTimeString()
         )
       );
     }
