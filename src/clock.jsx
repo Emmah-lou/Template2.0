@@ -1,7 +1,7 @@
 const App = () => {
   return (
     <Template>
-      <Clock />
+      <Clock secondsShift={0}/>
     </Template>
   );
 }

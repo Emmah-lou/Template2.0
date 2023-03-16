@@ -105,13 +105,32 @@ var Clock = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this, props));
 
     _this.state = {
-      date: new Date(),
+      currentTime: new Date(),
       location: 'New Mexico'
     };
     return _this;
   }
 
   _createClass(Clock, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.currentClock = setInterval(function () {
+        return _this2.updateTime();
+      }, 1000);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.currentClock);
+    }
+  }, {
+    key: "updateTime",
+    value: function updateTime() {
+      this.setState({ currentTime: new Date() });
+    }
+  }, {
     key: "render",
     value: function render() {
       return React.createElement(
@@ -123,8 +142,8 @@ var Clock = function (_React$Component) {
           "The Time in ",
           this.state.location,
           " is Currently, ",
-          this.state.date.toLocaleTimeString(),
-          "."
+          this.state.currentTime.toLocaleTimeString(),
+          ". MTS"
         )
       );
     }

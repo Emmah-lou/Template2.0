@@ -2,7 +2,7 @@ var App = function App() {
   return React.createElement(
     Template,
     null,
-    React.createElement(Clock, null)
+    React.createElement(Clock, { secondsShift: 0 })
   );
 };
 

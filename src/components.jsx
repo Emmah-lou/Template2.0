@@ -60,14 +60,23 @@ class Clock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date(),
+      currentTime: new Date(),
       location: 'New Mexico',
     };
+  }
+  componentDidMount() {
+    this.currentClock = setInterval(() => this.updateTime(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.currentClock);
+  }
+  updateTime() {
+    this.setState( {currentTime: new Date()} );
   }
   render() {
     return (
       <div>
-        <h2>The Time in {this.state.location} is Currently, {this.state.date.toLocaleTimeString()}.</h2>
+        <h2>The Time in {this.state.location} is Currently, {this.state.currentTime.toLocaleTimeString()}. MTS</h2>
       </div>
     );
   }
