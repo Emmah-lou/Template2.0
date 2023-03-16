@@ -27,6 +27,9 @@ const Navbar = () => {
           <li className="nav-item">
             <a className="nav-link" href="press.html">Press</a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" href="clock.html">Current time</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -49,4 +52,23 @@ const Footer = () => {
       Template Demo © 2019
     </div>
   )
+}
+
+
+
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date(),
+      location: 'New Mexico',
+    };
+  }
+  render() {
+    return (
+      <div>
+        <h2>The Time in {this.state.location} is Currently, {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
 }

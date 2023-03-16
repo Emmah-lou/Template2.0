@@ -1,7 +1,7 @@
 const App = () => {
   return (
     <Template>
-      <h1>Time Now.</h1>
+      <Clock />
     </Template>
   );
 }
@@ -10,3 +10,4 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
+
