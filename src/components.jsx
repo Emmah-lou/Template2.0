@@ -1,7 +1,8 @@
-const dotenv = require('dotenv');
-dotenv.config();
-const {mapAPIKey} = process.env.LOCATION_API_TOKEN;
-
+// const dotenv = require('dotenv');
+// dotenv.config();
+// const {mapAPIKey} = process.env.LOCATION_API_TOKEN;
+const LOCATION_API_TOKEN = 'pk.5f6ccf34896284c480a8d6ec083f317c';
+const WEATHER_API_TOKEN = '3b410b8ed8df2c4d8fd392406a80053f';
 
 const Template = (props) => {
   return (
@@ -88,6 +89,7 @@ class Clock extends React.Component {
     this.state = {
       currentTime: new Date(),
       location: 'Loading...',
+      weather: 'Loading...',
     };
   }
   getLocation() {
@@ -96,22 +98,38 @@ class Clock extends React.Component {
       const location = `${position.coords.latitude}, ${position.coords.longitude}`;
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      console.log(lat, lon);
-      const url = `https://www.google.com/search?q=${lat}%2C+${lon}`
-      //this.setState( {location: url} );
-      const apiCall = `https://us1.locationiq.com/v1/reverse?key=${mapAPIKey}&lat=${lat}&lon=${lon}&format=json`;
+      
+      
+      
+      
+                
+  
+      const weatherCall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_TOKEN}`;
+      
+      const apiCall = `https://us1.locationiq.com/v1/reverse?key=${LOCATION_API_TOKEN}&lat=${lat}&lon=${lon}&format=json`;
+      //call to location API
       fetch (apiCall)   
       .then(response => response.json())
       .then(data => {  
-        //console.log(data);
+        
         this.setState( {location: data.display_name} );
       })
+      .catch(error => console.log(error));
+      fetch (weatherCall)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error));
+
     });
 
   } 
   componentDidMount() {
     this.currentClock = setInterval(() => this.updateTime(), 1000);
     this.location = this.getLocation();
+    
+  
   }
   componentWillUnmount() {
     clearInterval(this.currentClock);
