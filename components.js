@@ -6,20 +6,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// const dotenv = require('dotenv');
+// dotenv.config();
+// const {mapAPIKey} = process.env.LOCATION_API_TOKEN;
+var LOCATION_API_TOKEN = 'pk.5f6ccf34896284c480a8d6ec083f317c';
+var WEATHER_API_TOKEN = '3b410b8ed8df2c4d8fd392406a80053f';
+
 var Template = function Template(props) {
   return React.createElement(
-    "div",
+    'div',
     null,
     React.createElement(Navbar, null),
     React.createElement(
-      "div",
-      { className: "container py-4" },
+      'div',
+      { className: 'container py-4' },
       React.createElement(
-        "div",
-        { className: "row" },
+        'div',
+        { className: 'row' },
         React.createElement(
-          "div",
-          { className: "col-12 col-md-9" },
+          'div',
+          { className: 'col-12 col-md-9' },
           props.children
         ),
         React.createElement(Sidebar, null)
@@ -31,44 +37,44 @@ var Template = function Template(props) {
 
 var Navbar = function Navbar() {
   return React.createElement(
-    "nav",
-    { className: "navbar navbar-expand navbar-light bg-light" },
+    'nav',
+    { className: 'navbar navbar-expand navbar-light bg-light' },
     React.createElement(
-      "a",
-      { className: "navbar-brand", href: "index.html" },
-      "Navbar"
+      'a',
+      { className: 'navbar-brand', href: 'index.html' },
+      'Navbar'
     ),
     React.createElement(
-      "div",
-      { className: "collapse navbar-collapse", id: "navbarNav" },
+      'div',
+      { className: 'collapse navbar-collapse', id: 'navbarNav' },
       React.createElement(
-        "ul",
-        { className: "navbar-nav" },
+        'ul',
+        { className: 'navbar-nav' },
         React.createElement(
-          "li",
-          { className: "nav-item" },
+          'li',
+          { className: 'nav-item' },
           React.createElement(
-            "a",
-            { className: "nav-link", href: "index.html" },
-            "Home"
+            'a',
+            { className: 'nav-link', href: 'index.html' },
+            'Home'
           )
         ),
         React.createElement(
-          "li",
-          { className: "nav-item" },
+          'li',
+          { className: 'nav-item' },
           React.createElement(
-            "a",
-            { className: "nav-link", href: "press.html" },
-            "Press"
+            'a',
+            { className: 'nav-link', href: 'press.html' },
+            'Press'
           )
         ),
         React.createElement(
-          "li",
-          { className: "nav-item" },
+          'li',
+          { className: 'nav-item' },
           React.createElement(
-            "a",
-            { className: "nav-link", href: "clock.html" },
-            "Current time"
+            'a',
+            { className: 'nav-link', href: 'clock.html' },
+            'Current time'
           )
         )
       )
@@ -78,21 +84,21 @@ var Navbar = function Navbar() {
 
 var Sidebar = function Sidebar() {
   return React.createElement(
-    "div",
-    { className: "d-none d-md-block col-md-3" },
+    'div',
+    { className: 'd-none d-md-block col-md-3' },
     React.createElement(
-      "div",
-      { className: "border border-primary py-4 px-3" },
-      "Sidebar"
+      'div',
+      { className: 'border border-primary py-4 px-3' },
+      'Sidebar'
     )
   );
 };
 
 var Footer = function Footer() {
   return React.createElement(
-    "div",
-    { className: "border-top p-2" },
-    "Template Demo \xA9 2019"
+    'div',
+    { className: 'border-top p-2' },
+    'Template Demo \xA9 2019'
   );
 };
 
@@ -112,31 +118,31 @@ var Counter = function (_React$Component) {
   }
 
   _createClass(Counter, [{
-    key: "increment",
+    key: 'increment',
     value: function increment(amount) {
 
       this.setState({ count: this.state.count + amount });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this2 = this;
 
       return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-          "h2",
+          'h2',
           null,
-          "Count: ",
+          'Count: ',
           this.state.count
         ),
         React.createElement(
-          "button",
+          'button',
           { onClick: function onClick() {
               return _this2.increment(1);
             } },
-          "Increment"
+          'Increment'
         )
       );
     }
@@ -155,34 +161,50 @@ var Clock = function (_React$Component2) {
 
     _this3.state = {
       currentTime: new Date(),
-      location: 'Loading...'
+      location: 'Loading...',
+      weather: 'Loading...'
     };
     return _this3;
   }
 
   _createClass(Clock, [{
-    key: "getLocation",
+    key: 'getLocation',
     value: function getLocation() {
       var _this4 = this;
 
       navigator.geolocation.getCurrentPosition(function (position) {
-        var location = position.coords.latitude + ", " + position.coords.longitude;
+        var location = position.coords.latitude + ', ' + position.coords.longitude;
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
-        console.log(lat, lon);
-        var url = "https://www.google.com/search?q=" + lat + "%2C+" + lon;
-        //this.setState( {location: url} );
-        var apiCall = "https://us1.locationiq.com/v1/reverse?key=pk.5f6ccf34896284c480a8d6ec083f317c&lat=" + lat + "&lon=" + lon + "&format=json";
+
+        //weather api call adress
+        var weatherCall = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + WEATHER_API_TOKEN;
+        //location api call adress
+        var apiCall = 'https://us1.locationiq.com/v1/reverse?key=' + LOCATION_API_TOKEN + '&lat=' + lat + '&lon=' + lon + '&format=json';
+        //call to location API
         fetch(apiCall).then(function (response) {
           return response.json();
         }).then(function (data) {
-          console.log(data);
+          // change state to display location
           _this4.setState({ location: data.display_name });
+        }).catch(function (error) {
+          return console.log(error);
+        });
+        //call to weather API
+        fetch(weatherCall).then(function (response) {
+          return response.json();
+        }).then(function (data) {
+          console.log(data);
+          console.log(data.weather[0].description);
+          // change state to display weather
+          _this4.setState({ weather: data.weather[0].description });
+        }).catch(function (error) {
+          return console.log(error);
         });
       });
     }
   }, {
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       var _this5 = this;
 
@@ -192,32 +214,38 @@ var Clock = function (_React$Component2) {
       this.location = this.getLocation();
     }
   }, {
-    key: "componentWillUnmount",
+    key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       clearInterval(this.currentClock);
     }
   }, {
-    key: "updateTime",
+    key: 'updateTime',
     value: function updateTime() {
       this.setState({ currentTime: new Date() });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-          "h2",
+          'h2',
           null,
-          "Hello World! Welcome ",
+          'Hello World! Welcome ',
           this.state.location
         ),
         React.createElement(
-          "h2",
+          'h2',
           null,
-          "Current time ",
+          'Current time ',
           this.state.currentTime.toLocaleTimeString()
+        ),
+        React.createElement(
+          'h2',
+          null,
+          'Current weather ',
+          this.state.weather
         )
       );
     }
@@ -242,30 +270,30 @@ var ScrollLengthLogger = function (_React$Component3) {
   }
 
   _createClass(ScrollLengthLogger, [{
-    key: "updateScrollLength",
+    key: 'updateScrollLength',
     value: function updateScrollLength(e) {
       this.setState({ scrollLength: window.scrollY });
     }
   }, {
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       window.addEventListener('scroll', this.updateScrollLength);
     }
   }, {
-    key: "componentWillUnmount",
+    key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       window.removeEventListener('scroll', this.updateScrollLength);
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-          "h2",
+          'h2',
           null,
-          "Scroll Length: ",
+          'Scroll Length: ',
           this.state.scrollLength
         )
       );
