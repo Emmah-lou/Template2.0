@@ -1,7 +1,7 @@
 // const dotenv = require('dotenv');
 // dotenv.config();
 // const {mapAPIKey} = process.env.LOCATION_API_TOKEN;
-const LOCATION_API_TOKEN = 'pk.5f6ccf34896284c480a8d6ec083f317c';
+
 const WEATHER_API_TOKEN = '3b410b8ed8df2c4d8fd392406a80053f';
 
 const Template = (props) => {
@@ -93,49 +93,34 @@ class Clock extends React.Component {
     };
   }
   
-  getLocation() {
+  getInfo() {
 
     navigator.geolocation.getCurrentPosition((position) => {
       const location = `${position.coords.latitude}, ${position.coords.longitude}`;
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       
-      
-      
-      
-                
       //weather api call adress
       const weatherCall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_TOKEN}`;
-      //location api call adress
-      const apiCall = `https://us1.locationiq.com/v1/reverse?key=${LOCATION_API_TOKEN}&lat=${lat}&lon=${lon}&format=json`;
-      //call to location API
-      fetch (apiCall)   
-      .then(response => response.json())
-      .then(data => {  
-        // change state to display location
-        this.setState( {location: data.display_name} );
-      })
-      .catch(error => console.log(error));
+      
       //call to weather API
       fetch (weatherCall)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        console.log(data.weather[0].description);
-        // change state to display weather
+        console.log(data.name);
+        // change state to display weather and location
         this.setState( {weather: data.weather[0].description} );
+        this.setState( {location: data.name} );
       })
       .catch(error => console.log(error));
-
     });
 
   } 
   componentDidMount() {
     this.currentClock = setInterval(() => this.updateTime(), 1000);
-    this.location = this.getLocation();
+    this.getInfo();
     
-    
-  
   }
   componentWillUnmount() {
     clearInterval(this.currentClock);
@@ -149,7 +134,6 @@ class Clock extends React.Component {
         <h2>Hello World! Welcome {this.state.location}</h2>
         <h2>Current time {this.state.currentTime.toLocaleTimeString()}</h2>
         <h2>Current weather {this.state.weather}</h2>
-        
       </div>
     );
   }
