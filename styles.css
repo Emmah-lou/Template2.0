@@ -1,3 +1,20 @@
 body {
   height: 300vh;
+}
+
+.current-info {
+  border: 4px solid rgb(88, 68, 68);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: black;
+}
+
+.scroll-logger {
+  position: fixed;
+  top: 0;
+  left: 500;
+  width: 100%;
+  height: 100%;
+  color: black;
+  z-index: 9999;
 }/*# sourceMappingURL=styles.css.map */

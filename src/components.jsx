@@ -24,7 +24,7 @@ const Template = (props) => {
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand navbar-light bg-light">
-      <a className="navbar-brand" href="index.html">Navbar</a>
+      <a className="navbar-brand" href="index.html">Emmah Lou Who</a>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
@@ -34,7 +34,7 @@ const Navbar = () => {
             <a className="nav-link" href="press.html">Press</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="clock.html">Current time</a>
+            <a className="nav-link" href="clock.html">Current Info</a>
           </li>
         </ul>
       </div>
@@ -55,7 +55,7 @@ const Sidebar = () => {
 const Footer = () => {
   return (
     <div className="border-top p-2">
-      Template Demo © 2019
+      Emma_lou_who © 2023 Student - AltAcademy
     </div>
   )
 }
@@ -74,7 +74,7 @@ class Counter extends React.Component {
   }
   render() { 
     return (
-      <div>
+      <div className="counter">
         <h2>Count: {this.state.count}</h2>
         <button onClick={() => this.increment(1)}>Increment</button>
       </div>
@@ -93,6 +93,10 @@ class Clock extends React.Component {
     };
   }
   
+  updateTime() {
+    this.setState( {currentTime: new Date()} );
+  }
+
   getInfo() {
 
     navigator.geolocation.getCurrentPosition((position) => {
@@ -125,15 +129,14 @@ class Clock extends React.Component {
   componentWillUnmount() {
     clearInterval(this.currentClock);
   }
-  updateTime() {
-    this.setState( {currentTime: new Date()} );
-  }
+  
   render() {
     return (
-      <div>
-        <h2>Hello World! Welcome {this.state.location}</h2>
-        <h2>Current time {this.state.currentTime.toLocaleTimeString()}</h2>
-        <h2>Current weather {this.state.weather}</h2>
+      <div className="current-info">
+        <h2>Hello World!</h2>
+        <h2>The Current time and weather in,  {this.state.location}.</h2>
+        <h1>{this.state.currentTime.toLocaleTimeString()}</h1>
+        <h2>{this.state.weather}</h2>
       </div>
     );
   }
@@ -159,7 +162,7 @@ class ScrollLengthLogger extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="scroll-logger">
         <h2>Scroll Length: {this.state.scrollLength}</h2>
       </div>
     );
