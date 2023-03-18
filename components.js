@@ -119,9 +119,9 @@ var Counter = function (_React$Component) {
 
   _createClass(Counter, [{
     key: "increment",
-    value: function increment(amount) {
-
-      this.setState({ count: this.state.count + amount });
+    value: function increment() {
+      console.log('increment pressed');
+      this.setState({ count: this.state.count + 1 });
     }
   }, {
     key: "render",
@@ -140,7 +140,7 @@ var Counter = function (_React$Component) {
         React.createElement(
           "button",
           { onClick: function onClick() {
-              return _this2.increment(1);
+              return _this2.increment();
             } },
           "Increment"
         )
@@ -296,4 +296,97 @@ var ScrollLengthLogger = function (_React$Component3) {
   }]);
 
   return ScrollLengthLogger;
+}(React.Component);
+
+var StopWatch = function (_React$Component4) {
+  _inherits(StopWatch, _React$Component4);
+
+  function StopWatch(props) {
+    _classCallCheck(this, StopWatch);
+
+    var _this7 = _possibleConstructorReturn(this, (StopWatch.__proto__ || Object.getPrototypeOf(StopWatch)).call(this, props));
+
+    _this7.state = {
+      timePassed: 0
+    };
+    _this7.timer = null;
+
+    _this7.start = _this7.start.bind(_this7);
+    _this7.stop = _this7.stop.bind(_this7);
+    _this7.reset = _this7.reset.bind(_this7);
+    return _this7;
+  }
+
+  _createClass(StopWatch, [{
+    key: "start",
+    value: function start() {
+      var _this8 = this;
+
+      console.log('start pressed');
+      if (!this.timer) {
+        var startTime = Date.now();
+        this.timer = setInterval(function () {
+          var stopTime = Date.now();
+          var timePassed = stopTime - startTime;
+          _this8.setState({ timePassed: timePassed });
+
+          startTime = stopTime;
+        }, 250);
+      }
+    }
+  }, {
+    key: "stop",
+    value: function stop() {
+      console.log('stop pressed');
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      console.log('reset pressed');
+      this.stop();
+      this.setState({ timePassed: 0 });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "h2",
+            { className: "border px-3 py-4 rounded my-3 mx-auto text-center", style: { maxWidth: "300px" } },
+            "Time Passed: ",
+            Math.floor(this.state.timePassed / 1000),
+            "s"
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "d-flex justify-content-center" },
+          React.createElement(
+            "button",
+            { className: "btn btn-outline-primary mr-2", onClick: this.start },
+            "Start"
+          ),
+          React.createElement(
+            "button",
+            { className: "btn btn-outline-danger mr-2", onClick: this.stop },
+            "Stop"
+          ),
+          React.createElement(
+            "button",
+            { className: "btn btn-outline-warning", onClick: this.reset },
+            "Reset"
+          )
+        )
+      );
+    }
+  }]);
+
+  return StopWatch;
 }(React.Component);

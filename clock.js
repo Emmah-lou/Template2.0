@@ -2,9 +2,10 @@ var App = function App() {
   return React.createElement(
     Template,
     null,
+    React.createElement(ScrollLengthLogger, null),
     React.createElement(Clock, null),
-    React.createElement(Counter, null),
-    React.createElement(ScrollLengthLogger, null)
+    React.createElement(StopWatch, null),
+    React.createElement(Counter, null)
   );
 };
 

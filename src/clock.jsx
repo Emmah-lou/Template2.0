@@ -1,11 +1,11 @@
 const App = () => {
   return (
     <Template>
-      <Clock />
-      
-      <Counter />
-
       <ScrollLengthLogger />
+      
+      <Clock />
+      <StopWatch />
+      <Counter />
     </Template>
   );
 }

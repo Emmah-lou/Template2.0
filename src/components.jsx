@@ -68,15 +68,15 @@ class Counter extends React.Component {
     };
     
   }
-  increment(amount) {
-    
-    this.setState( {count: this.state.count + amount} );
+  increment() {
+    console.log('increment pressed');
+    this.setState( {count: this.state.count + 1} );
   }
   render() { 
     return (
       <div className="counter">
         <h2>Count: {this.state.count}</h2>
-        <button onClick={() => this.increment(1)}>Increment</button>
+        <button onClick={() => this.increment()}>Increment</button>
       </div>
     );
 
@@ -168,3 +168,57 @@ class ScrollLengthLogger extends React.Component {
     );
   }
 }
+
+class StopWatch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timePassed: 0
+    }
+    this.timer = null;
+    
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+  start() {
+    console.log('start pressed');
+    if (!this.timer) {
+      let startTime = Date.now();
+      this.timer = setInterval(() => {
+        const stopTime = Date.now();
+        const timePassed = stopTime - startTime;
+        this.setState({timePassed: timePassed});
+
+        startTime = stopTime;
+      }, 250);
+      
+    }
+  }
+  stop() {
+    console.log('stop pressed');
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+  reset() {
+    console.log('reset pressed');
+    this.stop();
+    this.setState({timePassed: 0});
+  }
+  render() {
+    return (
+    <div>
+      <div>
+          <h2 className="border px-3 py-4 rounded my-3 mx-auto text-center" style={{maxWidth: "300px"}}>Time Passed: {Math.floor(this.state.timePassed / 1000)}s</h2>
+      </div>
+      <div className="d-flex justify-content-center">
+          <button className="btn btn-outline-primary mr-2" onClick={this.start}>Start</button>
+          <button className="btn btn-outline-danger mr-2" onClick={this.stop}>Stop</button>
+          <button className="btn btn-outline-warning" onClick={this.reset}>Reset</button>
+      </div>
+    </div>
+    );
+  }
+}
+
+
