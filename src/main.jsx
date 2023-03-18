@@ -1,7 +1,9 @@
 const App = () => {
   return (
     <Template>
-      <h1>Main Content</h1>
+      <Clock />
+      <StopWatch />
+      <Counter />
     </Template>
   );
 }

@@ -187,8 +187,8 @@ class StopWatch extends React.Component {
       let startTime = Date.now();
       this.timer = setInterval(() => {
         const stopTime = Date.now();
-        const timePassed = stopTime - startTime;
-        this.setState({timePassed: timePassed});
+        const timePassed = stopTime - startTime + this.state.timePassed;
+        this.setState({timePassed});
 
         startTime = stopTime;
       }, 250);

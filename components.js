@@ -327,7 +327,7 @@ var StopWatch = function (_React$Component4) {
         var startTime = Date.now();
         this.timer = setInterval(function () {
           var stopTime = Date.now();
-          var timePassed = stopTime - startTime;
+          var timePassed = stopTime - startTime + _this8.state.timePassed;
           _this8.setState({ timePassed: timePassed });
 
           startTime = stopTime;

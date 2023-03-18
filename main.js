@@ -2,11 +2,9 @@ var App = function App() {
   return React.createElement(
     Template,
     null,
-    React.createElement(
-      'h1',
-      null,
-      'Main Content'
-    )
+    React.createElement(Clock, null),
+    React.createElement(StopWatch, null),
+    React.createElement(Counter, null)
   );
 };
 
